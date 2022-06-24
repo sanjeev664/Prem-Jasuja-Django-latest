@@ -1,0 +1,159 @@
+.preview-modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .3);
+    z-index: 5;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.preview-modal .content-container{
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 2% auto;
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+}
+.preview-modal-content{
+    box-shadow: rgb(100,100,100) 0px 0px 10px -1px inset;
+    overflow: auto;
+    max-height: 90vh;
+    background-color: #fff;
+    padding: 5px 25px 0;
+    scroll-behavior: smooth;
+    scrollbar-width: 3px;
+    scrollbar-color: #4285F4;
+    animation: scaleout .5s ease;
+    transition: .3s all ease;
+}
+@keyframes scaleout {
+    from{
+        opacity: .3;
+        transform: scale(.6);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes scalein {
+    to{
+        opacity: .3;
+        transform: scale(.6);
+    }
+    from{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.preview-modal-content::-webkit-scrollbar{
+    background-color: transparent;
+    width: 3px;
+    border-radius: 20px;
+}
+.preview-modal-content::-webkit-scrollbar-thumb{
+    background-color: #4285F4;
+}
+
+.review-detail-content-view{
+    box-shadow: 0 0 6px 0px #ccc;
+}
+.preview-modal .label {
+    position: absolute;
+    bottom: 30px;
+    right: -50px;
+    transform: rotate(-41deg);
+    background: #4285F4;
+    color: #fff;
+    padding: 7px 0;
+    width: 15rem;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.ck-content.review-detail-content p{
+    margin-top: 0;
+}
+.ckeditor-placeholder{
+    min-height: 215px;
+    display: flex;
+}
+.ck.ck-editor{
+    animation: slideIn .5s ease;
+    transition: animation .6s ease;
+}
+
+.loading {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+    position: relative;
+}
+.loading > span{
+    border-radius: 50%;
+    margin: auto;
+    position: absolute;
+    animation: zoom .5s ease infinite;
+    transition: animation .5s ease;
+    background: #4285F4;   
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    top: 15px;
+    left: 15px;
+}
+.loading .inner {   
+    z-index: 3;
+}
+.loading .middle {
+    width: 50px;
+    height: 50px;
+    background: #73a5f5;
+    top: 10px;
+    left: 10px;
+    z-index: 2;
+    animation-delay: .2s;
+}
+.loading .outer {
+    top: 5px;
+    left: 5px;
+    width: 60px;
+    height: 60px;
+    background: #89ade7;
+    animation-delay: .4s;
+}
+@keyframes zoom {
+    from{
+        transform: scale(.5);
+        opacity: .5;
+    }
+    to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+@keyframes slideIn {
+    from{
+        top: 15px;
+        opacity: .6;
+    }
+    to{
+        top: 0;
+        opacity: 1;
+    }
+}
+@media screen and (min-width: 768px) {
+    .preview-modal .content-container, .preview-modal-content{
+        max-width: 80vw;
+    }
+}
+@media screen and (min-width: 992px) {
+    .preview-modal .content-container, .preview-modal-content{
+        max-width: 800px;
+    }
+}

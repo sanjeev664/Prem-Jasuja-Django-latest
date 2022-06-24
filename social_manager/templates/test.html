@@ -1,0 +1,966 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content%}
+<section class="profile-detil-outer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="profile-detail">
+                    <div class="profile-detail-img">         
+                        <a href="/profile/{{user.id}}">
+                            {% if user.image %}
+                              <img src="{{user.image.url}}">
+                            {% else %}
+                              <img  src="{% static 'images/unknown_user.jpeg' %}"> 
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="profile-detail-content">
+                        <div class="d-flex align-items-center justify-content-center justify-content-md-start flex-wrap flex-sm-nowrap">
+                            <h4>
+                                {% if user.fullname %} 
+                                    {{user.fullname}} 
+                                {%else%} 
+                                    Anonymous User 
+                                {%endif%}
+                            </h4>
+                            {% if request.user.username != user.username %}
+                                {% if is_follow %}
+                                    <a href = "/follow/{{user.id}}"class="main_btn">Unfollow</a>
+                                {%else%}
+                                    <a href = "/follow/{{user.id}}"class="main_btn">Follow</a>
+                                {%endif%}
+                            {%endif%}
+
+                        </div>
+                        <ul class="profile-detail-list">
+                            <li><span>{{days}}</span> Days</li>
+                            <li><span>{{followers}}</span> Followers</li>
+                            <li><span>{{following}}</span> Following</li>
+                        </ul>
+                        <p>{{user.bio}} </p>
+                        {% if user.website %}
+                        <div class="profile-detail-a"><a href="">{{user.website}}</a></div>
+                        {%endif%}
+                        <div class="profile-detail-content-btn">
+                            <button class="message_btn">Message</button>
+                            <div class="dropdown profile-fillter">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="d-md-block d-none">Fillter</span><i class="fas fa-sliders-h d-md-none"></i> <span><img class="d-none d-md-block" src="{% static 'images/dropdown-next.svg' %}"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li>
+                                        <a class="dropdown-item">
+                                            <form action="/action_page.php">
+                                                <!-- <label for="birthday">Birthday:</label> -->
+                                                <input type="date" id="birthday" name="birthday">
+                                            </form>
+                                        </a>
+                                    </li>
+                                    <li><a class="dropdown-item"><input type="text" placeholder="Location"></a></li>
+                                    <li><a href="" class="dropdown-item main_btn">Submit</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-detail-box-content">
+                    <ul class="nav nav-pills  box_group" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <span class="nav-link active" id="pills-days-tab" data-bs-toggle="pill" data-bs-target="#pills-days" type="button" role="tab" aria-controls="pills-days" aria-selected="true">Days</span>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <span class="nav-link" id="pills-privte-tab" data-bs-toggle="pill" data-bs-target="#pills-privte" type="button" role="tab" aria-controls="pills-privte" aria-selected="false">Private</span>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <span class="nav-link" id="pills-draft-tab" data-bs-toggle="pill" data-bs-target="#pills-draft" type="button" role="tab" aria-controls="pills-draft" aria-selected="false">Draft</span>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <span class="nav-link" id="pills-saved-tab" data-bs-toggle="pill" data-bs-target="#pills-saved" type="button" role="tab" aria-controls="pills-saved" aria-selected="false">Saved</span>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <span class="nav-link" id="pills-tagged-tab" data-bs-toggle="pill" data-bs-target="#pills-tagged" type="button" role="tab" aria-controls="pills-tagged" aria-selected="false">Tagged</span>
+                        </li>
+                    </ul>
+                    <div class="tab-content " id="pills-tabContent">
+                        <div class="tab-pane fade show active box_group" id="pills-days" role="tabpanel" aria-labelledby="pills-days-tab">
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-privte" role="tabpanel" aria-labelledby="pills-privte-tab">
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-draft" role="tabpanel" aria-labelledby="pills-draft-tab">
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-saved" role="tabpanel" aria-labelledby="pills-saved-tab">
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small><a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a><a href="#"><img src="images/heart.png"><span><span>1000</span> Likes</span>	</a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="pills-tagged" role="tabpanel" aria-labelledby="pills-tagged-tab">
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="box_group">
+                                <ul class="msg_box mb-3 mb-sm-5">
+                                    <li class="row align-items-center">
+                                        <div class="col-lg-12 ">
+                                            <div class="right_part">
+                                                <ul class="date_time d-flex ">
+                                                    <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                                    <li>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/bookmark.png">
+                                                            <img class="red-heart" src="images/bookmark-blue.png">
+                                                        </a>
+                                                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                                    </li>
+                                                </ul>
+                                                <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's </p>
+
+                                                <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                                    <li>
+                                                        <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                                        <a class="heart">
+                                                            <img class="simple-heart" src="images/heart.png">
+                                                            <img class="red-heart" src="images/red-heart.png">
+                                                            <span><span>1000</span> Likes</span>
+                                                        </a>
+                                                        <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                                        <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{%endblock%}

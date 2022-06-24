@@ -1,0 +1,248 @@
+﻿{%extends 'base.html'%}
+{% load static %}
+{% block content%}
+
+
+{% include "search-nav.html" %}
+<section class="box_group">
+    <div class="container">
+        <div class="row news-list">
+
+        <!-- <------- main Li --------->
+        {% for post in posts %}
+            {% include 'posts-item.html' %}
+        {% endfor %}
+        </div>
+    </div>
+</section>
+
+{%endblock%}
+{% block scripts %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    <script>
+        $('.news-list').on('click','.post-save',function(e){
+            post_save($(this).attr('id'))
+            if($(this).attr("src")==="/static/images/bookmark-blue.png"){
+                $(this).attr("src", "/static/images/bookmark.png");
+            }else{
+                $(this).attr("src", "/static/images/bookmark-blue.png");
+            }
+        })
+    </script>
+    <script>
+        $('.news-list').on('click','.post-like',function(e){
+            post_like($(this).attr('id'))
+            if($(this).attr("src")==="/static/images/red-heart.png"){
+
+                var id = '#post_like_'+$(this).attr('id')
+                $(id).html(parseInt($(id).html(), 10)-1)
+
+                $(this).attr("src", "/static/images/heart.png");
+            }else{
+
+                var id = '#post_like_'+$(this).attr('id')
+                $(id).html(parseInt($(id).html(), 10)+1)
+                
+                $(this).attr("src", "/static/images/red-heart.png");
+            }
+        })
+    </script>
+    <script>
+        $('.dropdown-toggle').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).closest('.search-dropdown').toggleClass('open');
+        });
+
+        $('.dropdown-menu > li > a').click(function (e) {
+            e.preventDefault();
+            var clicked = $(this);
+            clicked.closest('.dropdown-menu').find('.menu-active').removeClass('menu-active');
+            clicked.parent('li').addClass('menu-active');
+            clicked.closest('.search-dropdown').find('.toggle-active').html(clicked.html());
+        });
+    </script>
+    <script>
+        // $(document).ready(function () {
+        /* Search bar */
+
+        var resizeElements;
+
+        $(document).ready(function () {
+
+            // Set up common variables
+            // --------------------------------------------------
+
+            var bar = ".search_bar";
+            var input = bar + " input[type='text']";
+            var button = bar + " button[type='submit']";
+            var dropdown = bar + " .search_dropdown";
+            var dropdownLabel = dropdown + " > span";
+            var dropdownList = dropdown + " ul";
+            var dropdownListItems = dropdownList + " li";
+
+
+            // Set up common functions
+            // --------------------------------------------------
+
+            resizeElements = function () {
+                var barWidth = $(bar).outerWidth();
+
+                var labelWidth = $(dropdownLabel).outerWidth();
+                $(dropdown).width(labelWidth);
+
+                var dropdownWidth = $(dropdown).outerWidth();
+                var buttonWidth = $(button).outerWidth();
+                var inputWidth = barWidth - dropdownWidth - buttonWidth;
+                var inputWidthPercent = inputWidth / barWidth * 100 + "%";
+
+                $(input).css({ 'margin-left': dropdownWidth, 'width': inputWidthPercent });
+            }
+
+            function dropdownOn() {
+                $(dropdownList).fadeIn(25);
+                $(dropdown).addClass("active");
+            }
+
+            function dropdownOff() {
+                $(dropdownList).fadeOut(25);
+                $(dropdown).removeClass("active");
+            }
+
+
+            // Initialize initial resize of initial elements
+            // --------------------------------------------------
+            resizeElements();
+
+
+            // Toggle new dropdown menu on click
+            // --------------------------------------------------
+
+            $(dropdown).click(function (event) {
+                if ($(dropdown).hasClass("active")) {
+                    dropdownOff();
+                } else {
+                    dropdownOn();
+                }
+
+                event.stopPropagation();
+                return false;
+            });
+
+            $("html").click(dropdownOff);
+
+
+            // Activate new dropdown option and show tray if applicable
+            // --------------------------------------------------
+
+            $(dropdownListItems).click(function () {
+                $(this).siblings("li.selected").removeClass("selected");
+                $(this).addClass("selected");
+
+                // Focus the input
+                $(this).parents("form.search_bar:first").find("input[type=text]").focus();
+
+                var labelText = $(this).text();
+                $(dropdownLabel).text(labelText);
+
+                resizeElements();
+
+            });
+
+
+            // Resize all elements when the window resizes
+            // --------------------------------------------------
+
+            $(window).resize(function () {
+                resizeElements();
+            });
+
+        });
+                                // });
+    </script>
+
+
+    <script>
+        // refrence infinite scroll : https://www.progerhub.com/tutorial/adding-pagination-with-infinite-scroll-in-django/
+        $(document).ready(function () {
+            var current_url = window.location.href;
+            var url = new URL(current_url);
+            var search_option = url.searchParams.get("search_option");
+            window.news_index = '{% url 'social_manager:index' %}';
+
+            var page = 1;
+            var block_request = false;
+            var end_pagination = false;
+
+            $(window).scroll(function () {
+                var margin = $(document).height() - $(window).height() - 200;
+
+                if ($(window).scrollTop() > margin && end_pagination === false && block_request === false) {
+                    block_request = true;
+                    page += 1;
+
+                    $.ajax({
+                        type: 'GET',
+                        url: window.news_index,
+                        data: {
+                            "page": page,
+                            "search_option":search_option
+                        },
+                        success: function (data) {
+                            if (data.end_pagination === true) {
+                                end_pagination = true;
+                            } else {
+                                block_request = false;
+                            }
+                            $('.news-list').append(data.content);
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        function post_save(post_id){
+            console.log("post_id__",post_id)
+            var url = "/save-post/"+post_id
+            event.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success: function (data) {
+                    if (data.status == 200) {
+                        $("#MESSAGE-DIV").html("Success");
+                    }        
+                },
+                error: function(data) {
+                    $("#MESSAGE-DIV").html("Something went wrong!");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        function post_like(post_id){
+            console.log("post_id__",post_id)
+            var url = "/like-post/"+post_id
+            event.preventDefault()
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+                success: function (data) {
+                    if (data.status == 200) {
+                        $("#MESSAGE-DIV").html("Success");
+                    }        
+                },
+                error: function(data) {
+                    $("#MESSAGE-DIV").html("Something went wrong!");
+                }
+            });
+        }
+    </script>
+{% endblock %}

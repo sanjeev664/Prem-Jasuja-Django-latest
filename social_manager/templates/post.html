@@ -1,0 +1,339 @@
+﻿{%extends 'base.html'%}
+{% load static %}
+{% block content%}
+<section class="preview">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="preview-custmor-detail">
+                    <div class="preview-custmor-detail-img">
+                        <a href="/profile/{{post.user.id}}">
+                            {% if post.user.image %}
+                              <img src="{{post.user.image.url}}">
+                            {% else %}
+                              <img  src="{% static 'images/unknown_user.jpeg' %}"> 
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="profile-info">
+                        <h4>
+                            {% if post.user.fullname %} 
+                                By: {{post.user.fullname}} 
+                            {%else%} 
+                                By: Anonymous User 
+                            {%endif%}
+                        </h4>
+                        {% if request.user.username != post.user.username %}
+                            {% if is_follow %}
+                                <a href = "/follow/{{post.user.id}}"class="main_btn">Unfollow</a>
+                            {%else%}
+                                <a href = "/follow/{{post.user.id}}"class="main_btn">Follow</a>
+                            {%endif%}
+                        {%endif%}
+                        {% if request.user.username != post.user.username %}
+                            <button class="message_btn">Message</button>
+                        {%endif%}
+                        {% if request.user.username == post.user.username %}
+                            <a href=""><button class="main_btn">Edit Post</button></a> 
+                            <a href="/delete-post/{{post.id}}" onclick="return confirm('Are you sure you want to delete?');"><button class="main_btn">Delete</button></a>
+                        {%endif%}
+
+                    </div>
+                    <a href="#" class="active folder-img" onclick="window.print();" class="review-detail"><img src="{% static 'images/folder.png' %}"></a>
+                </div>
+                <div class="review-detail ">
+                    <ul class="date_time d-flex ">
+                        <li><p><i class="far fa-clock"></i>{{post.datetime}}{% if post.location %}- {{post.location}} {%endif%}</p></li>
+                    </ul>
+                    <h4>{{post.title}}</h4>
+                </div>
+                <div class="review-detail-content">
+                    {{post.post_description|safe}}
+                    <div class="review-detail-content-view">
+                        <ul class="like_comment d-flex justify-content-between align-items-center mt-0">
+                            <li>
+                                <small><img src="{% static 'images/eye.png' %}"><span><span>{{post.views.count}}</span> Views</span></small>
+                            </li>
+                            <li>
+                                <a class="heart">
+                                    {% if is_liked %}
+                                        <img class="post-like" id="{{post.id}}" src="{% static 'images/red-heart.png' %}">
+                                    {% else %}
+                                        <img class="post-like" id="{{post.id}}" src="{% static 'images/heart.png' %}">
+                                    {%endif%}
+
+                                    <span><span id="post_like_{{post.id}}">{{post.likes.count}}</span> Likes</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/post/comments/{{post.id}}/"><img  src="{% static 'images/messsage.png' %}"><span><span>{{post.posts_comment.all|length}}</span> Comments</span>    </a>
+
+                            </li>
+                            <li>
+                                <a href="#"><img src="{% static 'images/share.png' %}"><span><span>1000</span> Shares</span> </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="review-detail-comment">
+
+                        <form method="POST" action="/post/comments/{{post.id}}/">
+                            {% csrf_token %}                     
+                            <div class="review-detail-comment-write">
+                                <img src="{% static 'images/messsage.png' %}">
+                                <input  name="comment" id="id_comment" type="text" placeholder="Write Comment...">
+                                <button type="submit">Post</button>
+                            </div>
+                        </form>
+
+                        <ul class="like_comment mt-0">
+                            <li>
+                                <small><img src="{% static 'images/messsage.png' %}"><span><span>{{comments.count}}</span> Comments</span></small>
+                            </li>
+                        </ul>
+
+                        {% for comment in comments|slice:":5" %}
+                            {% if comment.is_parent %}
+                            <div class="review-detail-comment-box-outer">
+                                <div class="review-detail-comment-box">
+                                    <div class="review-detail-comment-box-img">
+                                        <a href="/profile/{{comment.author.pk}}"><img src="{{ comment.author.image.url }}"></a>
+                                    </div>
+                                    <div class="review-detail-comment-box-content">
+                                        <h4><a href="/profile/{{comment.author.pk}}">@{{ comment.author.fullname }}</a> - {{comment.created }}</h4>
+                                        <p>{{ comment.comment }}</p>
+                                        <ul>
+                                            <li>
+                                                <a class="heart">
+                                                    {% if comment.is_liked %}
+                                                        <img class="comment-like" id="{{comment.id}}" src="{% static 'images/red-heart.png' %}">
+                                                    {% else %}
+                                                        <img class="comment-like" id="{{comment.id}}" src="{% static 'images/heart.png' %}">
+                                                    {%endif%}
+                                                    <span><span id="comment_like_{{comment.id}}">{{ comment.likes.all.count }}</span> Likes</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                {% if request.user == comment.author %}
+                                                    <a href="/post/comment/delete/{{comment.pk}}/" class="edit-color"><i class="fas fa-trash"></i></a>
+                                                {% endif %}
+                                            </li>
+                                            <li class="red-hearta">
+                                                <small><img src="{% static 'images/messsage.png' %}"><span>{{comment.children.count}} Reply</span></small>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="reply-comment-write">
+                                        <form method="POST" action="/post/{{post.pk}}/comment/{{comment.pk}}/reply">
+                                            <div class="review-detail-comment-write">     
+                                                {% csrf_token %}
+                                                <input type="text" name="comment" id="id_comment"  placeholder="Write Comment...">
+                                                <button type="submit" data-bs-dismiss="modal">Post</button>
+                                            </div>
+                                         </form>
+                                    </div>
+                                </div>
+                                {% for child_comment in comment.children %}
+                                    <div class="writereply-box">
+                                        <div class="review-detail-comment-box">
+                                            <div class="review-detail-comment-box-img">
+                                                <a href="/profile/{{child_comment.author.pk}}"><img src="{{child_comment.author.image.url}}"></a>
+                                            </div>
+                                            <div class="review-detail-comment-box-content">
+                                                <h4><a href="/profile/{{child_comment.author.pk}}">@{{ child_comment.author.fullname }}</a> - {{child_comment.created }}</h4>
+                                                <p>{{ child_comment.comment }}</p>
+                                                <ul>
+                                                    <li>
+                                                        <a class="heart">
+                                                            {% if child_comment.is_liked %}
+                                                                <img class="comment-like" id="{{child_comment.id}}" src="{% static 'images/red-heart.png' %}">
+                                                            {% else %}
+                                                                <img class="comment-like" id="{{child_comment.id}}" src="{% static 'images/heart.png' %}">
+                                                            {%endif%}
+                                                            <span><span id="comment_like_{{child_comment.id}}">{{ child_comment.likes.all.count }}</span> Likes</span>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        {% if request.user == child_comment.author %}
+                                                            <a href="/post/comment/delete/{{child_comment.pk}}/" class="edit-color"><i class="fas fa-trash"></i></a>
+                                                        {% endif %}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="reply-comment-write">
+                                                <div class="review-detail-comment-write">
+                                                    <input type="text" placeholder="Write Comment...">
+                                                    <button data-bs-dismiss="modal">Post</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                        <div class="review-detail-comment-box-more">
+                            <a href="/post/comments/{{post.id}}/">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="box_group">
+    <div class="container">
+        <!-- <------- main Li --------->
+        <ul class="msg_box mb-3 mb-sm-5">
+            <li class="row align-items-center">
+                <div class="col-lg-3 mb-3 mb-lg-0 pe-0">
+                    <div class="left_part">
+                        <div class="radious_img">
+                            <img src="images/radious-img.png">
+                            <h4 class="">Birget Marrie</h4>
+                            <p>Followers:1000</p>
+                        </div>
+                        <div class="content_part">
+                            <button class="main_btn">Follow</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 ">
+                    <div class="right_part">
+                        <ul class="date_time d-flex ">
+                            <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                            <li>
+                                <a class="heart">
+                                    <img class="simple-heart" src="images/bookmark.png">
+                                    <img class="red-heart" src="images/bookmark-blue.png">
+
+                                </a>
+                                <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                            </li>
+                        </ul>
+                        <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text.   </p>
+
+                        <ul class="like_comment d-flex justify-content-between align-items-center ">
+                            <li>
+                                <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                <a class="heart">
+                                    <img class="simple-heart" src="images/heart.png">
+                                    <img class="red-heart" src="images/red-heart.png">
+                                    <span><span>1000</span> Likes</span>
+                                </a>
+                                <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade " id="writereply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Write Reply</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="reply-comment-write">
+                    <div class="review-detail-comment-write">
+                        <input type="text" placeholder="Write Comment...">
+                        <button data-bs-dismiss="modal">Post</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="{% static 'css/post-print.css' %}">
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript">
+    function post_like(post_id){
+        console.log("post_id__",post_id)
+        var url = "/like-post/"+post_id
+        event.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+            success: function (data) {
+                if (data.status == 200) {
+                    $("#MESSAGE-DIV").html("Success");
+                }        
+            },
+            error: function(data) {
+                $("#MESSAGE-DIV").html("Something went wrong!");
+            }
+        });
+    }
+</script>
+
+<script>
+    $('.post-like').click(function (e) {
+        post_like($(this).attr('id'))
+        if($(this).attr("src")==="/static/images/red-heart.png"){
+
+            var id = '#post_like_'+$(this).attr('id')
+            $(id).html(parseInt($(id).html(), 10)-1)
+
+            $(this).attr("src", "/static/images/heart.png");
+        }else{
+
+            var id = '#post_like_'+$(this).attr('id')
+            $(id).html(parseInt($(id).html(), 10)+1)
+            
+            $(this).attr("src", "/static/images/red-heart.png");
+        }
+    })
+</script>
+
+<script>
+    $('.comment-like').click(function (e) {
+        comment_like($(this).attr('id'))
+        if($(this).attr("src")==="/static/images/red-heart.png"){
+
+            var id = '#comment_like_'+$(this).attr('id')
+            $(id).html(parseInt($(id).html(), 10)-1)
+
+            $(this).attr("src", "/static/images/heart.png");
+        }else{
+
+            var id = '#comment_like_'+$(this).attr('id')
+            $(id).html(parseInt($(id).html(), 10)+1)
+            
+            $(this).attr("src", "/static/images/red-heart.png");
+        }
+    })
+</script>
+<script type="text/javascript">
+    function comment_like(comment_id){
+        console.log("comment_id__",comment_id)
+        var url = "/like-post-comment/"+comment_id
+        event.preventDefault()
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}'},
+            success: function (data) {
+                if (data.status == 200) {
+                    $("#MESSAGE-DIV").html("Success");
+                }        
+            },
+            error: function(data) {
+                $("#MESSAGE-DIV").html("Something went wrong!");
+            }
+        });
+    }
+</script>
+{%endblock%}

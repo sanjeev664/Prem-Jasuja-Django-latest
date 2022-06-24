@@ -1,0 +1,53 @@
+
+
+
+
+{% load static %}
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="{% static 'css/account_style.css' %}">
+</head>
+
+<body>
+    {% include "loader.html" %}
+    <div class="center">
+        <h1>Reset Password</h1>
+        <form method="post" novalidate>{% csrf_token %}
+            <div class="txt_field">
+                {{ form.new_password1 }}
+                <span></span>
+                {{ form.new_password1.label_tag }}
+            </div>
+            {% if form.new_password1.errors %}
+            <div class="help-block help-critical">
+                {% for error in form.new_password1.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="txt_field">
+                {{ form.new_password2 }}
+                <span></span>
+                {{ form.new_password2.label_tag }}
+            </div>
+            {% if form.new_password2.errors %}
+            <div class="help-block help-critical">
+                {% for error in form.new_password2.errors %}
+                <p class="error">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <input type="submit" value="Reset Password" />
+            <div class="signup_link"></div>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</body>
+
+</html>

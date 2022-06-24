@@ -1,0 +1,36 @@
+
+
+{% load static %}
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="{% static 'css/account_style.css' %}">
+  </head>
+  <body>
+    {% include "loader.html" %}
+    <div class="center">
+      <h1>Reset Password</h1>
+      <form method="post" novalidate>{% csrf_token %}
+        <div class="txt_field">
+                {{ form.email }}
+          <span></span>
+          {{ form.email.label_tag }}
+        </div>
+        <div class="messages">
+                <ul>
+                    {% for error in form.email.errors %}
+                        <li class="error">{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        <input type="submit" value="Reset Password" />
+        <div class="signup_link"></div>
+      </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  </body>
+</html>

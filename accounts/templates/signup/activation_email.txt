@@ -1,0 +1,7 @@
+ {% load i18n %}
+{% trans "Please follow the link below to activate your password:" %}
+{% if base_url %}{{ base_url }}{% else %}{{ protocol }}://{{ domain }}{% endif %}{% url 'accounts:confirm_activation_link' uidb64=uid token=token %}
+
+{% if user.USERNAME_FIELD != "email" %}
+{% trans "Your username (in case you've forgotten):" %} {{ user.get_username }}
+{% endif %}

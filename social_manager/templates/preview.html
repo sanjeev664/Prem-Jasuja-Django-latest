@@ -1,0 +1,580 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home page</title>
+
+    <!-- fonts CSS -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="header bg-white">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand" href="./index.html">write <span>your</span> day ...</a>
+                <div class="header-search mbl-search">
+                    <div class="dropdown">
+                        <span class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="images/dropdown-next.svg"></span>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li class="selected">All</li>
+                            <li>Message</li>
+                            <li>All recodes</li>
+                        </ul>
+                    </div>
+                    <div class="enter-search">
+                        <input type="text" placeholder="search....">
+                    </div>
+                    <button>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14"
+                             role="img">
+                            <path d="M13.65 12L10.4 8.75A5.64 5.64 0 0 0 5.66 0a5.67 5.67 0 1 0 3.1 10.4L12 13.66a1.15 1.15 0 0 0 1.64 0 1.16 1.16 0 0 0 0-1.65zM5.66 9.55a3.89 3.89 0 1 1 .01-7.78 3.89 3.89 0 0 1 0 7.78z">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item search-by">
+                            <div class="header-search">
+                                <div class="dropdown">
+                                    <span class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="images/dropdown-next.svg"></span>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li class="selected">All</li>
+                                        <li>Message</li>
+                                        <li>All recodes</li>
+                                    </ul>
+                                </div>
+                                <input type="text" placeholder="search....">
+                                <button>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14"
+                                         role="img">
+                                        <path d="M13.65 12L10.4 8.75A5.64 5.64 0 0 0 5.66 0a5.67 5.67 0 1 0 3.1 10.4L12 13.66a1.15 1.15 0 0 0 1.64 0 1.16 1.16 0 0 0 0-1.65zM5.66 9.55a3.89 3.89 0 1 1 .01-7.78 3.89 3.89 0 0 1 0 7.78z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="nav-item write-btn">
+                            <a href="./write-page.html"><span class="header-btn" href="./write-page.html">Write Now</span></a>
+                        </li>
+                        <li class="nav-item messages">
+                            <a class="header-message-box" href="./chat.html">
+                                <small>Message</small>
+                                <span class="header-message d-none" href="#">2</span>
+                            </a>
+                        </li>
+                        <li class="nav-item profile">
+                            <a href="./profile.html">
+                                <div class="nav-link">
+                                    <img class="header-img" src="images/radious-img.png">
+                                    <h4>Birget Marrie</h4>
+
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item notifiction">
+                            <a href="./Notification.html">
+                                <span class="header-notifiction" href="./Notification.html">
+                                    <small class="d-block d-lg-none">Notification</small>
+                                    <img src="images/bell.png" alt="bell.png">
+                                    <p>2</p>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item user-icon">
+                            <div class="nav-link">
+                                <img class="header-img" src="images/radious-img.png">
+                                <h4 class="d-lg-none">Birget Marrie</h4>
+                            </div>
+                            <ul class="submenu">
+                                <li>
+                                    <a href="./profile.html">
+                                        <img class="header-img" src="images/radious-img.png">
+                                        <h4>Birget Marrie</h4>
+                                    </a>
+                                </li>
+                                <li><a href="./edit.html">Settings</a></li>
+                                <li><a href="./login.html">Logout</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item settings d-lg-none">
+                            <a class="header-message-box" href="./edit.html">
+                                <small>Settings</small>
+                            </a>
+                        </li>
+                        <li class="nav-item logout d-lg-none">
+                            <a class="header-message-box" href="./login.html">
+                                <small>Logout</small>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="preview">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="preview-custmor-detail">
+                        <div class="preview-custmor-detail-img">
+                            <img src="images/radious-img.png">
+                        </div>
+                        <div class="profile-info">
+                            <h4>By: Jone Smith</h4>
+                            <button class="main_btn">Follow</button>
+                            <button class="message_btn">Message</button>
+                        </div>
+                        <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                    </div>
+                    <div class="review-detail ">
+                        <ul class="date_time d-flex ">
+                            <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                        </ul>
+                        <h4>Loretm Ipsum is simply dummy text of the printing</h4>
+                    </div>
+                    <div class="review-detail-content">
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy </p>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy </p>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy </p>
+                        <div class="review-detail-content-view">
+                            <ul class="like_comment d-flex justify-content-between align-items-center mt-0">
+                                <li>
+                                    <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                </li>
+                                <li>
+                                    <a class="heart">
+                                        <img class="simple-heart" src="images/heart.png">
+                                        <img class="red-heart" src="images/red-heart.png">
+                                        <span><span>1000</span> Likes</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span> </a>
+                                </li>
+                                <li>
+                                    <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span>	</a>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="review-detail-comment">
+                            <ul class="like_comment mt-0">
+                                <li>
+                                    <small><img src="images/messsage.png"><span><span>1000</span> Comments</span></small>
+                                </li>
+                            </ul>
+                            <div class="review-detail-comment-box-outer">
+                                <div class="review-detail-comment-box">
+                                    <div class="review-detail-comment-box-img">
+                                        <img src="images/radious-img.png">
+                                    </div>
+                                    <div class="review-detail-comment-box-content">
+                                        <h4>Ridhi Singh</h4>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                        <ul>
+                                            <li>
+                                                <a class="heart">
+                                                    <img class="simple-heart" src="images/heart.png">
+                                                    <img class="red-heart" src="images/red-heart.png">
+                                                    <span><span>1000</span> Likes</span>
+                                                </a>
+                                            </li>
+                                            <li class="red-hearta">
+                                                <small><img src="images/messsage.png"><span>1 Reply</span></small>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="reply-comment-write">
+                                        <div class="review-detail-comment-write">
+                                            <input type="text" placeholder="Write Comment...">
+                                            <button data-bs-dismiss="modal">Post</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-detail-comment-box-outer">
+                                <div class="review-detail-comment-box">
+                                    <div class="review-detail-comment-box-img">
+                                        <img src="images/radious-img.png">
+                                    </div>
+                                    <div class="review-detail-comment-box-content">
+                                        <h4>Ridhi Singh</h4>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                        <ul>
+                                            <li>
+                                                <a class="heart">
+                                                    <img class="simple-heart" src="images/heart.png">
+                                                    <img class="red-heart" src="images/red-heart.png">
+                                                    <span><span>1000</span> Likes</span>
+                                                </a>
+                                            </li>
+                                            <li class="red-hearta">
+                                                <small><img src="images/messsage.png"><span>1 Reply</span></small>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="reply-comment-write">
+                                        <div class="review-detail-comment-write">
+                                            <input type="text" placeholder="Write Comment...">
+                                            <button data-bs-dismiss="modal">Post</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-detail-comment-box-outer">
+                                <div class="review-detail-comment-box">
+                                    <div class="review-detail-comment-box-img">
+                                        <img src="images/radious-img.png">
+                                    </div>
+                                    <div class="review-detail-comment-box-content">
+                                        <h4>Ridhi Singh</h4>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                        <ul>
+                                            <li>
+                                                <a class="heart">
+                                                    <img class="simple-heart" src="images/heart.png">
+                                                    <img class="red-heart" src="images/red-heart.png">
+                                                    <span><span>1000</span> Likes</span>
+                                                </a>
+                                            </li>
+                                            <li class="red-hearta">
+                                                <small><img src="images/messsage.png"><span>1 Reply</span></small>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="reply-comment-write">
+                                        <div class="review-detail-comment-write">
+                                            <input type="text" placeholder="Write Comment...">
+                                            <button data-bs-dismiss="modal">Post</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="writereply-box">
+                                    <div class="review-detail-comment-box">
+                                        <div class="review-detail-comment-box-img">
+                                            <img src="images/radious-img.png">
+                                        </div>
+                                        <div class="review-detail-comment-box-content">
+                                            <h4>Ridhi Singh1</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                            <ul>
+                                                <li>
+                                                    <a class="heart">
+                                                        <img class="simple-heart" src="images/heart.png">
+                                                        <img class="red-heart" src="images/red-heart.png">
+                                                        <span><span>1000</span> Likes</span>
+                                                    </a>
+                                                </li>
+                                                <li class="red-hearta">
+                                                    <small><img src="images/messsage.png"><span>1 Reply</span></small>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="reply-comment-write">
+                                            <div class="review-detail-comment-write">
+                                                <input type="text" placeholder="Write Comment...">
+                                                <button data-bs-dismiss="modal">Post</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-detail-comment-box-outer">
+                                <div class="review-detail-comment-box">
+                                    <div class="review-detail-comment-box-img">
+                                        <img src="images/radious-img.png">
+                                    </div>
+                                    <div class="review-detail-comment-box-content">
+                                        <h4>Ridhi Singh</h4>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                        <ul>
+                                            <li>
+                                                <a class="heart">
+                                                    <img class="simple-heart" src="images/heart.png">
+                                                    <img class="red-heart" src="images/red-heart.png">
+                                                    <span><span>1000</span> Likes</span>
+                                                </a>
+                                            </li>
+                                            <li class="red-hearta">
+                                                <small><img src="images/messsage.png"><span>1 Reply</span></small>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="reply-comment-write">
+                                        <div class="review-detail-comment-write">
+                                            <input type="text" placeholder="Write Comment...">
+                                            <button data-bs-dismiss="modal">Post</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="writereply-box">
+                                    <div class="review-detail-comment-box">
+                                        <div class="review-detail-comment-box-img">
+                                            <img src="images/radious-img.png">
+                                        </div>
+                                        <div class="review-detail-comment-box-content">
+                                            <h4>Ridhi Singh1</h4>
+                                            <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                            <ul>
+                                                <li>
+                                                    <a class="heart">
+                                                        <img class="simple-heart" src="images/heart.png">
+                                                        <img class="red-heart" src="images/red-heart.png">
+                                                        <span><span>1000</span> Likes</span>
+                                                    </a>
+                                                </li>
+                                                <li class="red-hearta">
+                                                    <small><img src="images/messsage.png"><span>1 Reply</span></small>
+
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="reply-comment-write">
+                                            <div class="review-detail-comment-write">
+                                                <input type="text" placeholder="Write Comment...">
+                                                <button data-bs-dismiss="modal">Post</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="review-detail-comment-box-more">
+                                <a href="">View More</a>
+                            </div>
+                            <div class="review-detail-comment-write">
+                                <img src="images/messsage.png">
+                                <input type="text" placeholder="Write Comment...">
+                                <button>Post</button>
+                            </div>
+                            <h5>More Relative Days</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="box_group">
+        <div class="container">
+            <!-- <------- main Li --------->
+            <ul class="msg_box mb-3 mb-sm-5">
+                <li class="row align-items-center">
+                    <div class="col-lg-3 mb-3 mb-lg-0 pe-0">
+                        <div class="left_part">
+                            <div class="radious_img">
+                                <img src="images/radious-img.png">
+                                <h4 class="">Birget Marrie</h4>
+                                <p>Followers:1000</p>
+                            </div>
+                            <div class="content_part">
+                                <button class="main_btn">Follow</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 ">
+                        <div class="right_part">
+                            <ul class="date_time d-flex ">
+                                <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                                <li>
+                                    <a class="heart">
+                                        <img class="simple-heart" src="images/bookmark.png">
+                                        <img class="red-heart" src="images/bookmark-blue.png">
+
+                                    </a>
+                                    <a href="#" class="active folder-img"><img src="images/folder.png"></a>
+                                </li>
+                            </ul>
+                            <h3>Loretm Ipsum is simply dummy text of the printing</h3>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy text.   </p>
+
+                            <ul class="like_comment d-flex justify-content-between align-items-center ">
+                                <li>
+                                    <small><img src="images/eye.png"><span><span>1000</span> Views</span></small>
+                                    <a class="heart">
+                                        <img class="simple-heart" src="images/heart.png">
+                                        <img class="red-heart" src="images/red-heart.png">
+                                        <span><span>1000</span> Likes</span>
+                                    </a>
+                                    <a href="#"><img src="images/messsage.png"><span><span>1000</span> Comments</span> </a>
+                                    <a href="#"><img src="images/share.png"><span><span>1000</span> Shares</span>	</a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="footer text-center">
+        <div class="container">
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade " id="writereply" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Write Reply</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="reply-comment-write">
+                        <div class="review-detail-comment-write">
+                            <input type="text" placeholder="Write Comment...">
+                            <button data-bs-dismiss="modal">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script>
+        $('.simple-heart').click(function (e) {
+            $(this).hide();
+        })
+
+        $(function () {
+            $('.simple-heart').click(function () {
+                $(this).siblings('.red-heart').show()
+            })
+        })
+    </script>
+    <script>
+        $('.red-heart').click(function (e) {
+            $(this).hide();
+        })
+
+        $(function () {
+            $('.red-heart').click(function () {
+                $(this).siblings('.simple-heart').show()
+            })
+        })
+    </script>
+    <script>
+        // $(document).ready(function () {
+        /* Search bar */
+
+        var resizeElements;
+
+        $(document).ready(function () {
+
+            // Set up common variables
+            // --------------------------------------------------
+
+            var bar = ".search_bar";
+            var input = bar + " input[type='text']";
+            var button = bar + " button[type='submit']";
+            var dropdown = bar + " .search_dropdown";
+            var dropdownLabel = dropdown + " > span";
+            var dropdownList = dropdown + " ul";
+            var dropdownListItems = dropdownList + " li";
+
+
+            // Set up common functions
+            // --------------------------------------------------
+
+            resizeElements = function () {
+                var barWidth = $(bar).outerWidth();
+
+                var labelWidth = $(dropdownLabel).outerWidth();
+                $(dropdown).width(labelWidth);
+
+                var dropdownWidth = $(dropdown).outerWidth();
+                var buttonWidth = $(button).outerWidth();
+                var inputWidth = barWidth - dropdownWidth - buttonWidth;
+                var inputWidthPercent = inputWidth / barWidth * 100 + "%";
+
+                $(input).css({ 'margin-left': dropdownWidth, 'width': inputWidthPercent });
+            }
+
+            function dropdownOn() {
+                $(dropdownList).fadeIn(25);
+                $(dropdown).addClass("active");
+            }
+
+            function dropdownOff() {
+                $(dropdownList).fadeOut(25);
+                $(dropdown).removeClass("active");
+            }
+
+
+            // Initialize initial resize of initial elements
+            // --------------------------------------------------
+            resizeElements();
+
+
+            // Toggle new dropdown menu on click
+            // --------------------------------------------------
+
+            $(dropdown).click(function (event) {
+                if ($(dropdown).hasClass("active")) {
+                    dropdownOff();
+                } else {
+                    dropdownOn();
+                }
+
+                event.stopPropagation();
+                return false;
+            });
+
+            $("html").click(dropdownOff);
+
+
+            // Activate new dropdown option and show tray if applicable
+            // --------------------------------------------------
+
+            $(dropdownListItems).click(function () {
+                $(this).siblings("li.selected").removeClass("selected");
+                $(this).addClass("selected");
+
+                // Focus the input
+                $(this).parents("form.search_bar:first").find("input[type=text]").focus();
+
+                var labelText = $(this).text();
+                $(dropdownLabel).text(labelText);
+
+                resizeElements();
+
+            });
+
+
+            // Resize all elements when the window resizes
+            // --------------------------------------------------
+
+            $(window).resize(function () {
+                resizeElements();
+            });
+
+        });
+                // });
+    </script>
+
+</body>
+</html>

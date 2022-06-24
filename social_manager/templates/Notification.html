@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Notifications</title>
+
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min4.css">
+        <link rel="stylesheet" type="text/css" href="css/customstyle.css">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </head>
+    
+
+    <body>
+        <header class="header bg-white">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <a class="navbar-brand" href="./index.html">write <span>your</span> day ...</a>
+                    <div class="header-search mbl-search">
+                        <div class="dropdown">
+                            <span class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="images/dropdown-next.svg"></span>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li class="selected">All</li>
+                                <li>Message</li>
+                                <li>All recodes</li>
+                            </ul>
+                        </div>
+                        <div class="enter-search">
+                            <input type="text" placeholder="search....">
+                        </div>
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14"
+                                 role="img">
+                                <path d="M13.65 12L10.4 8.75A5.64 5.64 0 0 0 5.66 0a5.67 5.67 0 1 0 3.1 10.4L12 13.66a1.15 1.15 0 0 0 1.64 0 1.16 1.16 0 0 0 0-1.65zM5.66 9.55a3.89 3.89 0 1 1 .01-7.78 3.89 3.89 0 0 1 0 7.78z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav">
+                            <li class="nav-item search-by">
+                                <div class="header-search">
+                                    <div class="dropdown">
+                                        <span class="dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><img src="images/dropdown-next.svg"></span>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li class="selected">All</li>
+                                            <li>Message</li>
+                                            <li>All recodes</li>
+                                        </ul>
+                                    </div>
+                                    <input type="text" placeholder="search....">
+                                    <button>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14"
+                                             role="img">
+                                            <path d="M13.65 12L10.4 8.75A5.64 5.64 0 0 0 5.66 0a5.67 5.67 0 1 0 3.1 10.4L12 13.66a1.15 1.15 0 0 0 1.64 0 1.16 1.16 0 0 0 0-1.65zM5.66 9.55a3.89 3.89 0 1 1 .01-7.78 3.89 3.89 0 0 1 0 7.78z">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </li>
+                            <li class="nav-item write-btn">
+                                <a href="./write-page.html"><span class="header-btn" href="./write-page.html">Write Now</span></a>
+                            </li>
+                            <li class="nav-item messages">
+                                <a class="header-message-box" href="./chat.html">
+                                    <small>Message</small>
+                                    <span class="header-message d-none" href="#">2</span>
+                                </a>
+                            </li>
+                            <li class="nav-item profile">
+                                <a href="./profile.html">
+                                    <div class="nav-link">
+                                        <img class="header-img" src="images/radious-img.png">
+                                        <h4>Birget Marrie</h4>
+    
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="nav-item notifiction">
+                                <a href="./Notification.html">
+                                    <span class="header-notifiction" href="./Notification.html">
+                                        <small class="d-block d-lg-none">Notification</small>
+                                        <img src="images/bell.png" alt="bell.png">
+                                        <p>2</p>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item user-icon">
+                                <div class="nav-link">
+                                    <img class="header-img" src="images/radious-img.png">
+                                    <h4 class="d-lg-none">Birget Marrie</h4>
+                                </div>
+                                <ul class="submenu">
+                                    <li>
+                                        <a href="./profile.html">
+                                            <img class="header-img" src="images/radious-img.png">
+                                            <h4>Birget Marrie</h4>
+                                        </a>
+                                    </li>
+                                    <li><a href="./edit.html">Settings</a></li>
+                                    <li><a href="./login.html">Logout</a></li>
+                                </ul>
+                            </li>
+                            
+                            <li class="nav-item settings d-lg-none">
+                                <a class="header-message-box" href="./edit.html">
+                                    <small>Settings</small>
+                                </a>
+                            </li>
+                            <li class="nav-item logout d-lg-none">
+                                <a class="header-message-box" href="./login.html">
+                                    <small>Logout</small>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <section class="section-50">
+            <div class="container">
+                <h3 class="m-b-50 heading-line">Notifications <i class="fa fa-bell text-muted"></i></h3>
+        
+                <div class="notification-ui_dd-content">
+                    <div class="notification-list notification-list--unread">
+                        <div class="notification-list_content">
+                            <div class="notification-list_img">
+                                <img src="https://i.imgur.com/zYxDCQT.jpg" alt="user">
+                            </div>
+                            <div class="notification-list_detail">
+                                <p><b>John Doe</b> reacted to your post</p>
+                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.</p>
+                                <p class="text-muted"><small>10 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="notification-list_feature-img">
+                            <img src="https://i.imgur.com/AbZqFnR.jpg" alt="Feature image">
+                        </div>
+                    </div>
+                    <div class="notification-list notification-list--unread">
+                        <div class="notification-list_content">
+                            <div class="notification-list_img">
+                                <img src="https://i.imgur.com/w4Mp4ny.jpg" alt="user">
+                            </div>
+                            <div class="notification-list_detail">
+                                <p><b>Richard Miles</b> liked your post</p>
+                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.</p>
+                                <p class="text-muted"><small>10 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="notification-list_feature-img">
+                            <img src="https://i.imgur.com/AbZqFnR.jpg" alt="Feature image">
+                        </div>
+                    </div>
+                    <div class="notification-list">
+                        <div class="notification-list_content">
+                            <div class="notification-list_img">
+                                <img src="https://i.imgur.com/ltXdE4K.jpg" alt="user">
+                            </div>
+                            <div class="notification-list_detail">
+                                <p><b>Brian Cumin</b> reacted to your post</p>
+                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.</p>
+                                <p class="text-muted"><small>10 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="notification-list_feature-img">
+                            <img src="https://i.imgur.com/bpBpAlH.jpg" alt="Feature image">
+                        </div>
+                    </div>
+                    <div class="notification-list">
+                        <div class="notification-list_content">
+                            <div class="notification-list_img">
+                                <img src="https://i.imgur.com/CtAQDCP.jpg" alt="user">
+                            </div>
+                            <div class="notification-list_detail">
+                                <p><b>Lance Bogrol</b> reacted to your post</p>
+                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.</p>
+                                <p class="text-muted"><small>10 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="notification-list_feature-img">
+                            <img src="https://i.imgur.com/iIhftMJ.jpg" alt="Feature image">
+                        </div>
+                    </div>
+                    <div class="notification-list">
+                        <div class="notification-list_content">
+                            <div class="notification-list_img">
+                                <img src="https://i.imgur.com/zYxDCQT.jpg" alt="user">
+                            </div>
+                            <div class="notification-list_detail">
+                                <p><b>Parsley Montana</b> reacted to your post</p>
+                                <p class="text-muted">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde, dolorem.</p>
+                                <p class="text-muted"><small>10 mins ago</small></p>
+                            </div>
+                        </div>
+                        <div class="notification-list_feature-img">
+                            <img src="https://i.imgur.com/bpBpAlH.jpg" alt="Feature image">
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="text-center">
+                    <a href="#!" class="dark-link">Load more activity</a>
+                </div>
+        
+            </div>
+        </section>
+        <script src="js/bootstrap.min4.js"></script>
+        <script src="js/custom.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,290 @@
+{%extends 'base.html'%}
+{% load static %}
+{% block content%}
+<link rel="stylesheet" href="{% static 'css/snippet.css' %}">
+<section class="write-page-outer">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="write-page-btn">
+                    <button class="preview-btn" onClick="post_update('public')" href="javascript:void(0)">Public</button>
+                    <div class="dropdown">
+                        <button class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Preview <img src="{% static 'images/next-white.png' %}">
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" >Preview</a></li>
+                            <li><a class="dropdown-item" onClick="post_update('private')" href="javascript:void(0)">Private</a></li>
+                            <li><a class="dropdown-item" onClick="post_update('draft')" href="javascript:void(0)">Draft</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <form  id="post-write-form" method="post">
+                    {% csrf_token %}
+                <h4>Type your day title*</h4>
+                <div class="write-page-title-outer">
+                    <div class="write-page-title">
+                        <ul class="date_time d-flex ">
+                            <li><p><i class="far fa-clock"></i>{{datetime}}</p></li>
+                        </ul>
+                        <textarea maxlength="100" name="title" placeholder="Type your title" maxlength="100">{{post.title}}</textarea>
+                        <span>100 Charcter</span>
+                    </div>
+                </div>
+
+                
+                <div class="write-page-title-editor"> 
+                    <h4>Type your day Description*</h4> 
+
+                    <p><a href="javascript:void(0)" onclick="runSpeechRecognition()"><i class="fa fa-microphone" aria-hidden="true"></i></a> &nbsp; <span id="action">Try saying</span></p>
+
+                    <!-- <textarea name="" id="editor" cols="30" rows="10"></textarea> -->
+                    <textarea class="ckeditor" name="post_description" cols="10" id="toolbar-grouping" name="editor1" rows="50">{% if post.post_description %}{{post.post_description}}{% else %}Type your day Description{% endif %}</textarea>
+                    <div id="demo-word-count" class="word-count">
+                    </div>
+                </div>
+                <div class="post-preview" style="display: none;">
+                    <h4>Post Preview</h4>
+                    <div class="post-preview-box">
+                        <a href=""><h6>https://www.pngwing.com/en/search?q=apple+watch&page=2https://www.pngwing.com/en/search?q=apple+watch&page=2</h6></a>
+                        <ul class="date_time d-flex ">
+                            <li><p><i class="far fa-clock"></i>10:00 AM - 20 feb, 2020 - Las Vegas, USA</p></li>
+                        </ul>
+                        <h4>Lorem Ipsum is simply dummy text of the printing simply dummy text of the printing</h4>
+                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not centuries,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        <!-- <ul class="post-preview-icon"> -->
+                        <!-- <li><img src="images/eye.png"></li> -->
+                        <!-- <li><img src="images/heart.png"></li> -->
+                        <!-- <li><img src="images/messsage.png"></li> -->
+                        <!-- <li class="me-0"><img src="images/share.png"></li> -->
+                        <!-- </ul> -->
+                    </div>
+                </div>
+                <div class="write-page-input-box">
+                    <div class="write-page-input">
+                        <label>SEO TITLE</label>
+                        <input type="text" name="seo_title" id="seo_title" value="{{post.seo_title}}">
+                    </div>
+                    <div class="write-page-input">
+                        <label>SLUG URL</label>
+                        <input type="text" name="seo_url" id="seo_url" readonly value="{{post.seo_url}}">
+                    </div>
+                    <div class="write-page-input">
+                        <label>Meta description </label>
+                        <textarea maxlength="2500" name="meta_description">{{post.meta_description}}</textarea>
+                        <span>2500 charcter</span>
+                    </div>
+                    <input type="hidden" id="latitude" name="latitude">
+                    <input type="hidden" id="longitude" name="longitude">
+                    <button onclick="return false">Save Changes</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/snippet.js' %}"></script>
+    <script src="{% static 'js/toolbar-grouping.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script type="text/javascript">
+        var post_id = {{post.id}}
+    </script>
+    <script>
+        // $(document).ready(function () {
+        /* Search bar */
+
+        var resizeElements;
+
+        $(document).ready(function () {
+
+            // Set up common variables
+            // --------------------------------------------------
+
+            var bar = ".search_bar";
+            var input = bar + " input[type='text']";
+            var button = bar + " button[type='submit']";
+            var dropdown = bar + " .search_dropdown";
+            var dropdownLabel = dropdown + " > span";
+            var dropdownList = dropdown + " ul";
+            var dropdownListItems = dropdownList + " li";
+
+
+            // Set up common functions
+            // --------------------------------------------------
+
+            resizeElements = function () {
+                var barWidth = $(bar).outerWidth();
+
+                var labelWidth = $(dropdownLabel).outerWidth();
+                $(dropdown).width(labelWidth);
+
+                var dropdownWidth = $(dropdown).outerWidth();
+                var buttonWidth = $(button).outerWidth();
+                var inputWidth = barWidth - dropdownWidth - buttonWidth;
+                var inputWidthPercent = inputWidth / barWidth * 100 + "%";
+
+                $(input).css({ 'margin-left': dropdownWidth, 'width': inputWidthPercent });
+            }
+
+            function dropdownOn() {
+                $(dropdownList).fadeIn(25);
+                $(dropdown).addClass("active");
+            }
+
+            function dropdownOff() {
+                $(dropdownList).fadeOut(25);
+                $(dropdown).removeClass("active");
+            }
+
+
+            // Initialize initial resize of initial elements
+            // --------------------------------------------------
+            resizeElements();
+
+
+            // Toggle new dropdown menu on click
+            // --------------------------------------------------
+
+            $(dropdown).click(function (event) {
+                if ($(dropdown).hasClass("active")) {
+                    dropdownOff();
+                } else {
+                    dropdownOn();
+                }
+
+                event.stopPropagation();
+                return false;
+            });
+
+            $("html").click(dropdownOff);
+
+
+            // Activate new dropdown option and show tray if applicable
+            // --------------------------------------------------
+
+            $(dropdownListItems).click(function () {
+                $(this).siblings("li.selected").removeClass("selected");
+                $(this).addClass("selected");
+
+                // Focus the input
+                $(this).parents("form.search_bar:first").find("input[type=text]").focus();
+
+                var labelText = $(this).text();
+                $(dropdownLabel).text(labelText);
+
+                resizeElements();
+
+            });
+
+
+            // Resize all elements when the window resizes
+            // --------------------------------------------------
+
+            $(window).resize(function () {
+                resizeElements();
+            });
+
+        });
+        // });
+    </script>
+    <!--<script>
+        CKEDITOR.replace('editor', {
+            skin: 'moono',
+            enterMode: CKEDITOR.ENTER_BR,
+            shiftEnterMode: CKEDITOR.ENTER_P,
+            toolbar: [{ name: 'basicstyles', groups: ['basicstyles'], items: ['Bold', 'Italic', 'Underline', "-", 'TextColor', 'BGColor'] },
+            { name: 'styles', items: ['Format', 'Font', 'FontSize'] },
+            { name: 'scripts', items: ['Subscript', 'Superscript'] },
+            { name: 'justify', groups: ['blocks', 'align'], items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'] },
+            { name: 'paragraph', groups: ['list', 'indent'], items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'] },
+            { name: 'links', items: ['Link', 'Unlink'] },
+            { name: 'insert', items: ['Image'] },
+            { name: 'spell', items: ['jQuerySpellChecker'] },
+            { name: 'table', items: ['Table'] }
+            ],
+        });
+
+    </script>-->
+    <script>
+        //CKEDITOR.replace('editor1', {
+        //    height: 300,
+
+        //    // Configure your file manager integration. This example uses CKFinder 3 for PHP.
+        //    filebrowserBrowseUrl: '/ckfinder/ckfinder.html',
+        //    filebrowserImageBrowseUrl: '/ckfinder/ckfinder.html?type=Images',
+        //    filebrowserUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        //    filebrowserImageUploadUrl: '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images'
+        //});
+
+        ClassicEditor
+            .create(document.querySelector('#toolbar-grouping'), {
+                toolbar: [
+                    'heading', '|',
+                    // 'fontfamily', 'fontsize', '|',
+                    'alignment', '|',
+                    // 'fontColor', 'fontBackgroundColor', '|',
+                    'bold', 'italic', 'underline', '|',
+                    'link', '|',
+                    'bulletedList', 'numberedList', '|',
+                    'outdent', 'indent', '|',
+                    // 'uploadImage', 
+                    'blockQuote', '|',
+                    'undo', 'redo'
+                ],
+                heading: {
+                    options: [
+                        { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                        { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                        { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                        { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                        { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+                        { model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+                        { model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+                    ]
+                }
+            })
+            .then(e => { window.editor = e, document.getElementById("demo-word-count").appendChild(e.plugins.get("WordCount").wordCountContainer) })
+            .catch(error => {
+                console.error(error);
+            });
+
+        function countChar(val) {
+            var len = val.value.length;
+            if (len >= 500) {
+                val.value = val.value.substring(0, 500);
+            } else {
+                $('#demo-word-count').text(500 - len);
+            }
+        };
+    </script>
+    <script>
+        function dialogResizeCentered(d, w, h) { //d-dialog, w,h-width, height
+            var sw, sh; //screenwidth, screenheight
+            var rx, ry; //null atm, for resize x, resize y
+            get sw, sh from window.object
+            rx = parseInt(sw / 2 - w / 2);
+            ry = parseInt(sh / 2 - h / 2);
+            d.call resize(w, h);
+            d.call reposition(rx, ry);
+        }
+    </script>
+    <script type="text/javascript">
+        $("#seo_title").keyup(function(e){
+            update();
+        });
+
+        function update() {
+            var a = $('#seo_title').val();
+            a = a.replace(/[^a-zA-Z ]/g, "")
+            a = a.split(' ').join('-')
+            $("#seo_url").val(a);      
+        }
+    </script>
+
+    <script src="{% static 'js/write_post.js' %}"></script>
+
+{% endblock  %}

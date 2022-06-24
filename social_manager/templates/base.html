@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Required meta tags -->
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home page</title>
+
+  {% block styles %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,800;1,400;1,500;1,600&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+  {% endblock %}
+
+</head>
+<body>
+
+	{% include "navbar.html" %}
+
+  {% block content %} 
+  {% endblock %}
+
+  {% include "footer.html" %}
+
+  {% block scripts %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+
+    <script>
+        $('.simple-heart').click(function (e) {
+            $(this).hide();
+        })
+
+        $(function () {
+            $('.simple-heart').click(function () {
+                $(this).siblings('.red-heart').show('fast')
+            })
+        })
+    </script>
+    <script>
+        $('.red-heart').click(function (e) {
+            $(this).hide();
+        })
+
+        $(function () {
+            $('.red-heart').click(function () {
+                $(this).siblings('.simple-heart').show('fast')
+            })
+        })
+    </script>
+    <script>
+        $('.dropdown-toggle').click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).closest('.search-dropdown').toggleClass('open');
+        });
+
+        $('.dropdown-menu > li > a').click(function (e) {
+            e.preventDefault();
+            var clicked = $(this);
+            clicked.closest('.dropdown-menu').find('.menu-active').removeClass('menu-active');
+            clicked.parent('li').addClass('menu-active');
+            clicked.closest('.search-dropdown').find('.toggle-active').html(clicked.html());
+        });
+    </script>
+    <script>
+        // $(document).ready(function () {
+        /* Search bar */
+
+        var resizeElements;
+
+        $(document).ready(function () {
+
+            // Set up common variables
+            // --------------------------------------------------
+
+            var bar = ".search_bar";
+            var input = bar + " input[type='text']";
+            var button = bar + " button[type='submit']";
+            var dropdown = bar + " .search_dropdown";
+            var dropdownLabel = dropdown + " > span";
+            var dropdownList = dropdown + " ul";
+            var dropdownListItems = dropdownList + " li";
+
+
+            // Set up common functions
+            // --------------------------------------------------
+
+            resizeElements = function () {
+                var barWidth = $(bar).outerWidth();
+
+                var labelWidth = $(dropdownLabel).outerWidth();
+                $(dropdown).width(labelWidth);
+
+                var dropdownWidth = $(dropdown).outerWidth();
+                var buttonWidth = $(button).outerWidth();
+                var inputWidth = barWidth - dropdownWidth - buttonWidth;
+                var inputWidthPercent = inputWidth / barWidth * 100 + "%";
+
+                $(input).css({ 'margin-left': dropdownWidth, 'width': inputWidthPercent });
+            }
+
+            function dropdownOn() {
+                $(dropdownList).fadeIn(25);
+                $(dropdown).addClass("active");
+            }
+
+            function dropdownOff() {
+                $(dropdownList).fadeOut(25);
+                $(dropdown).removeClass("active");
+            }
+
+
+            // Initialize initial resize of initial elements
+            // --------------------------------------------------
+            resizeElements();
+
+
+            // Toggle new dropdown menu on click
+            // --------------------------------------------------
+
+            $(dropdown).click(function (event) {
+                if ($(dropdown).hasClass("active")) {
+                    dropdownOff();
+                } else {
+                    dropdownOn();
+                }
+
+                event.stopPropagation();
+                return false;
+            });
+
+            $("html").click(dropdownOff);
+
+
+            // Activate new dropdown option and show tray if applicable
+            // --------------------------------------------------
+
+            $(dropdownListItems).click(function () {
+                $(this).siblings("li.selected").removeClass("selected");
+                $(this).addClass("selected");
+
+                // Focus the input
+                $(this).parents("form.search_bar:first").find("input[type=text]").focus();
+
+                var labelText = $(this).text();
+                $(dropdownLabel).text(labelText);
+
+                resizeElements();
+
+            });
+
+
+            // Resize all elements when the window resizes
+            // --------------------------------------------------
+
+            $(window).resize(function () {
+                resizeElements();
+            });
+
+        });
+                                // });
+    </script>
+
+  {%endblock%}
+</body>
+</html>

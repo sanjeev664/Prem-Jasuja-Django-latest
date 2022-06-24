@@ -1,0 +1,17 @@
+@media print {
+  .header{
+    display:none;
+  }
+  .footer{
+    display:none;
+  }
+  .review-detail-comment{
+    display:none;
+  }
+  .box_group{
+    display:none;
+  }
+  .preview{
+    display:block;
+  }
+}

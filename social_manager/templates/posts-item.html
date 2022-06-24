@@ -1,0 +1,84 @@
+{% load static %}
+<ul class="msg_box mb-3 mb-sm-5">
+    <li class="days-ago">
+        <p>{{ post.day }}<sup>th</sup><br>day</p>
+    </li>
+    <li class="row align-items-center">
+        <div class="col-lg-3 mb-3 mb-lg-0 pe-lg-0">
+            <div class="left_part">
+                <div class="radious_img">
+                    <a href="/profile/{{post.user.id}}"> 
+                        {% if post.user.image %}
+                            <img src="{{post.user.image.url}}">
+                        {% else %} 
+                            <img  src="{% static 'images/unknown_user.jpeg' %}">
+                        {% endif %}
+                    </a>
+                    <h4 class="">{% if post.user.fullname %} {{post.user.fullname}} {%else%} Anonymous User {%endif%}</h4>
+
+                    <p>Followers: {{post.user.rel_to_set.all|length}}</p>
+                </div>
+                <div class="content_part">
+                    {% if request.user.username != post.user.username %}
+                        {% if post.is_follow %}
+                            <a href = "/follow/{{post.user.id}}"><button class="main_btn">Unfollow</button></a>
+                        {%else%}
+                            <a href = "/follow/{{post.user.id}}"><button class="main_btn">Follow</button></a>
+                        {%endif%}
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 ">
+            <div class="right_part">
+                <ul class="date_time d-flex ">
+                    <li>
+                        <p><i class="far fa-clock"></i>{{post.datetime}}{% if post.location %}- {{post.location}} {%endif%}</p>
+                    </li>
+                    <li>
+                        <a class="heart">
+                            {% if post.is_saved %}
+                                <img class="post-save" id="{{post.id}}" src="{% static 'images/bookmark-blue.png' %}">
+                            {% else %}
+                                <img class="post-save" id="{{post.id}}" src="{% static 'images/bookmark.png' %}">
+                            {%endif%}
+
+                        </a>
+                        <a href="#" class="active folder-img" style="display: none;"><img src="{% static 'images/folder.png' %}"></a>
+                    </li>
+                </ul>
+                <h3>
+                    <a href="/post/{{post.id}}/{{post.slug}}">
+                        {% if post.seo_title %}
+                            {{ post.seo_title }}
+                        {% else %}
+                            {{ post.title }}
+                        {%endif%}
+                    </a>
+                </h3>
+                <p>
+                    {{post.post_description|safe}}
+                </p>
+
+                <ul class="like_comment d-flex justify-content-md-between align-items-center ">
+                    <li>
+                        <small><img src="{% static 'images/eye.png' %}"><span><span>{{post.views.count}}</span> Views</span></small>
+                        <a class="heart">
+
+                            {% if post.is_liked %}
+                                <img class="post-like" id="{{post.id}}" src="{% static 'images/red-heart.png' %}">
+                            {% else %}
+                                <img class="post-like" id="{{post.id}}" src="{% static 'images/heart.png' %}">
+                            {%endif%}
+
+                            <span><span id="post_like_{{post.id}}">{{post.likes.count}}</span> Likes</span>
+                        </a>
+                        <a href="/post/comments/{{post.id}}/"><img src="{% static 'images/messsage.png' %}"><span><span>{{post.posts_comment.all|length}}</span> Comments</span> </a>
+                        <a href="#"><img src="{% static 'images/share.png' %}"><span><span>1000</span> Shares</span> </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </li>
+</ul>
